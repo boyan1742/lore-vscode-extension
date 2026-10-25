@@ -46,6 +46,10 @@ Open the full panel with **Lore: Open Panel**. Other commands: Refresh, Create B
 - Branches that exist only on the server are listed but cannot be switched to from the UI (`lore sync` only updates the current branch, and switching to them has not been verified).
 - No clone, locks, layers or links.
 
+## Documentation
+
+Specifications live in [docs/](docs/README.md): the Lore CLI reference as observed, architecture, per-feature specs, the UI and message protocol, and testing.
+
 ## Development
 
 ```
