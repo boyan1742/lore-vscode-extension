@@ -1,0 +1,185 @@
+{
+  "name": "lore-management-extension",
+  "displayName": "Lore",
+  "description": "Manage Lore version control repositories: stage, commit, branch, merge, resolve conflicts and check the server from VS Code.",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.140.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "workspaceContains:.lore",
+    "onView:lore.actions",
+    "onCommand:lore.openPanel"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "lore.openPanel",
+        "title": "Open Lore Panel",
+        "category": "Lore",
+        "icon": "$(source-control)"
+      },
+      {
+        "command": "lore.refresh",
+        "title": "Refresh",
+        "category": "Lore",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "lore.initRepository",
+        "title": "Initialize Repository",
+        "category": "Lore"
+      },
+      {
+        "command": "lore.createBranch",
+        "title": "Create Branch",
+        "category": "Lore"
+      },
+      {
+        "command": "lore.switchBranch",
+        "title": "Switch Branch",
+        "category": "Lore"
+      },
+      {
+        "command": "lore.push",
+        "title": "Push",
+        "category": "Lore"
+      },
+      {
+        "command": "lore.pull",
+        "title": "Pull (Sync)",
+        "category": "Lore"
+      },
+      {
+        "command": "lore.createPullRequest",
+        "title": "Create Pull Request",
+        "category": "Lore"
+      },
+      {
+        "command": "lore.healthCheck",
+        "title": "Check Server Health",
+        "category": "Lore"
+      },
+      {
+        "command": "lore.showOutput",
+        "title": "Show Command Log",
+        "category": "Lore"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "lore",
+          "title": "Lore",
+          "icon": "media/lore.svg"
+        }
+      ]
+    },
+    "views": {
+      "lore": [
+        {
+          "type": "webview",
+          "id": "lore.actions",
+          "name": "Actions",
+          "icon": "media/lore.svg"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "lore.openPanel",
+          "when": "view == lore.actions",
+          "group": "navigation@1"
+        },
+        {
+          "command": "lore.refresh",
+          "when": "view == lore.actions",
+          "group": "navigation@2"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Lore",
+      "properties": {
+        "lore.path": {
+          "type": "string",
+          "default": "lore",
+          "description": "Path to the lore executable."
+        },
+        "lore.identity": {
+          "type": "string",
+          "default": "",
+          "description": "Identity passed to lore with --identity. Leave empty to use the identity in .lore/config.toml."
+        },
+        "lore.autoRefresh": {
+          "type": "boolean",
+          "default": true,
+          "description": "Refresh status when files in the workspace change."
+        },
+        "lore.healthCheck.port": {
+          "type": "number",
+          "default": 41339,
+          "description": "HTTP port of the Lore server health endpoint (separate from the lore:// port)."
+        },
+        "lore.healthCheck.url": {
+          "type": "string",
+          "default": "",
+          "description": "Full health check URL. Overrides the URL derived from the repository remote."
+        },
+        "lore.healthCheck.intervalSeconds": {
+          "type": "number",
+          "default": 30,
+          "minimum": 0,
+          "description": "Seconds between automatic server health checks. 0 disables polling."
+        },
+        "lore.graph.maxRevisions": {
+          "type": "number",
+          "default": 100,
+          "minimum": 10,
+          "maximum": 1000,
+          "description": "Maximum number of revisions shown in the history graph."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out && tsc -p src/webview-ui --noEmit",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test",
+    "test:unit": "npm run compile-tests && mocha --ui tdd out/test/parsers.test.js out/test/graph.test.js"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "24.x",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@types/vscode": "^1.140.0",
+    "@vscode/test-cli": "^0.0.15",
+    "@vscode/test-electron": "^3.0.0",
+    "eslint": "^10.5.0",
+    "ts-loader": "^9.6.2",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.61.1",
+    "webpack": "^5.107.2",
+    "webpack-cli": "^7.0.3"
+  },
+  "overrides": {
+    "diff": "^8.0.4",
+    "serialize-javascript": "^7.0.6"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}
