@@ -3,6 +3,12 @@
   "displayName": "Lore",
   "description": "Manage Lore version control repositories: stage, commit, branch, merge, resolve conflicts and check the server from VS Code.",
   "version": "0.0.1",
+  "publisher": "local",
+  "author": {
+    "name": "boyan1742",
+    "email": "boyan.vidolov@gmail.com"
+  },
+  "license": "UNLICENSED",
   "engines": {
     "vscode": "^1.140.0"
   },
@@ -157,7 +163,9 @@
     "pretest": "npm run compile-tests && npm run compile && npm run lint",
     "lint": "eslint src",
     "test": "vscode-test",
-    "test:unit": "npm run compile-tests && mocha --ui tdd out/test/parsers.test.js out/test/graph.test.js"
+    "test:unit": "npm run compile-tests && mocha --ui tdd out/test/parsers.test.js out/test/graph.test.js",
+    "prevscode:package": "node -e \"require('fs').mkdirSync('dist-vsix',{recursive:true})\"",
+    "vscode:package": "vsce package --allow-missing-repository --skip-license --out dist-vsix/lore-management-extension.vsix"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.10",
@@ -167,6 +175,7 @@
     "@types/vscode": "^1.140.0",
     "@vscode/test-cli": "^0.0.15",
     "@vscode/test-electron": "^3.0.0",
+    "@vscode/vsce": "^4.0.0",
     "eslint": "^10.5.0",
     "ts-loader": "^9.6.2",
     "typescript": "^6.0.3",

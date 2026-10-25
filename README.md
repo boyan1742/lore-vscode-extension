@@ -48,7 +48,7 @@ Open the full panel with **Lore: Open Panel**. Other commands: Refresh, Create B
 
 ## Documentation
 
-Specifications live in [docs/](docs/README.md): the Lore CLI reference as observed, architecture, per-feature specs, the UI and message protocol, and testing.
+Specifications live in the `docs/` folder of the source repository: the Lore CLI reference as observed, architecture, per-feature specs, the UI and message protocol, and testing.
 
 ## Development
 
